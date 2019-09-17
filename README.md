@@ -12,7 +12,7 @@ Things you can do
 
 ---
 
-More feature will be added soon
+More features will be added soon
 
 ---
 
