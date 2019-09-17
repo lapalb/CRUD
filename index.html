@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>CRUD operation using Angular JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+        });
+        function fun() {
+            $('#myt').DataTable();
+        }
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
     </script>
 </head>
@@ -30,13 +42,13 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container" >
     <!-- Welcome Banner-->
         <p class="alert alert-danger" style="text-align: center;">  {{welcomebanner}}</p>
 
     <!-- Add Employee -->
-    <div class="jumbotron">
-        <p style="margin-bottom: 0px" id="para">Add Employee detail</p>
+    <div class="jumbotron" ng-show="!upda">
+        <p id="para" style="margin-bottom: 0"><b>Add Employee detail</b></p>
         <div class="row">
             <div class="col-sm-6"><label>Emp Id</label><input type="number" ng-model="empid" class="form-control" data-toggle="tooltip" title="Only Number Allowed!" ng-required="required"></div>
             <div class="col-sm-6"><label>Name</label><input type="text" ng-model="empname" class="form-control" required>   </div>
@@ -59,13 +71,13 @@
             </div>
         </div>
         <div class="row">
-            <button type="submit" class="btn btn-block btn-success" ng-click="addEmp()"id ="adds">Submit</button>
+            <button type="submit" class="btn btn-success" ng-click="addEmp()"id ="adds" style="float: right">Submit</button>
         </div>
     </div>
 
     <!-- Updated Employee -->
     <div class="jumbotron"  ng-show="upda">
-        <p style="margin-bottom: 0px" id="para">Update Employee detail</p>
+        <p style="margin-bottom: 0px" id="para"><b>Update Employee detail</b></p>
         <div class="row">
             <div class="col-sm-6"><label>Emp Id</label><input type="number" ng-model="empidu" class="form-control" data-toggle="tooltip" title="Only Number Allowed!" disabled></div>
             <div class="col-sm-6"><label>Name</label><input type="text" ng-model="empnameu" class="form-control">   </div>
@@ -88,14 +100,17 @@
             </div>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-block btn-success" ng-click="upEmp()">Submit</button>
+            <button type="button" class="btn btn-success" ng-click="upEmp()"  style="float: right">Submit</button>
         </div>
     </div>
     <!--Show and Operate-->
 
+
+    <input class="form-control" id="myInput" type="text" placeholder="Search.." ng-show="emp.length!=0">
+    <br>
     <!-- Table Start: Displays Employee Info -->
     <div class="jumbotron" ng-if="emp.length!=0">
-        <table class="table table-responsive table-striped display nowrap" id="example">
+        <table class="table table-responsive table-condensed table-striped display nowrap" style="background:#f2dede" id="myt">
             <thead>
                 <tr>
                     <th>Employee Id</th>
@@ -106,8 +121,8 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <tr ng-repeat="x in emp">
+            <tbody id="myTable" >
+                <tr ng-repeat="x in filteredemp">
                     <td>{{x.id}}</td>
                     <td>{{x.name}}</td>
                     <td>{{x.salary}}</td>
@@ -120,11 +135,18 @@
 
             </tbody>
         </table>
+        <ul uib-pagination total-items="emp.length" ng-model="pagination.currentPage" ng-change="pageChanged()"></ul>
+     <!--   <div data-pagination="" data-num-pages="numPages()" data-current-page="currentPage" data-max-size="maxSize"  data-boundary-links="true"></div>-->
     </div>
 </div>
 
-
 <script src="angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-touch.js"></script>
 <script src="app.js"></script>
+
 </body>
 </html>
