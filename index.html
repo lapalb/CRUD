@@ -38,7 +38,7 @@
     <div class="jumbotron">
         <p style="margin-bottom: 0px" id="para">Add Employee detail</p>
         <div class="row">
-            <div class="col-sm-6"><label>Emp Id</label><input type="number" ng-model="empid" class="form-control" data-toggle="tooltip" title="Only Number Allowed!" required></div>
+            <div class="col-sm-6"><label>Emp Id</label><input type="number" ng-model="empid" class="form-control" data-toggle="tooltip" title="Only Number Allowed!" ng-required="required"></div>
             <div class="col-sm-6"><label>Name</label><input type="text" ng-model="empname" class="form-control" required>   </div>
         </div>
         <br>
@@ -62,6 +62,8 @@
             <button type="submit" class="btn btn-block btn-success" ng-click="addEmp()"id ="adds">Submit</button>
         </div>
     </div>
+
+    <!-- Updated Employee -->
     <div class="jumbotron"  ng-show="upda">
         <p style="margin-bottom: 0px" id="para">Update Employee detail</p>
         <div class="row">
