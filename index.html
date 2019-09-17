@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD operation using Angular JS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</head>
+
+
+<body ng-app="crud" ng-controller="crudController">
+<nav class="navbar navbar-default" style="margin-bottom: 0px">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img style="max-width:100px; margin-top: -7px;" src="http://entrepregirlbg.com/wp-content/uploads/2018/12/cisco-gs5.png"></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Welcome Banner-->
+        <p class="alert alert-danger" style="text-align: center;">  {{welcomebanner}}</p>
+
+    <!-- Add Employee -->
+    <div class="jumbotron">
+        <p style="margin-bottom: 0px" id="para">Add Employee detail</p>
+        <div class="row">
+            <div class="col-sm-6"><label>Emp Id</label><input type="number" ng-model="empid" class="form-control" data-toggle="tooltip" title="Only Number Allowed!" required></div>
+            <div class="col-sm-6"><label>Name</label><input type="text" ng-model="empname" class="form-control" required>   </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6"><label> Salary</label><input type="number" ng-model="empsalary" class="form-control" required></div>
+            <div class="col-sm-6">
+            <div class="form-group">
+                <label for="sel1">Select Designation:</label>
+                <select class="form-control" ng-model="empdes">
+                    <option>Software Engineer</option>
+                    <option>Senior Software Engineer</option>
+                    <option>Technical Leader</option>
+                    <option>Principal Engineer</option>
+                    <option>Distinguished Engineer</option>
+                    <option></option>
+                </select>
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-block btn-success" ng-click="addEmp()"id ="adds">Submit</button>
+        </div>
+    </div>
+    <div class="jumbotron"  ng-show="upda">
+        <p style="margin-bottom: 0px" id="para">Update Employee detail</p>
+        <div class="row">
+            <div class="col-sm-6"><label>Emp Id</label><input type="number" ng-model="empidu" class="form-control" data-toggle="tooltip" title="Only Number Allowed!" disabled></div>
+            <div class="col-sm-6"><label>Name</label><input type="text" ng-model="empnameu" class="form-control">   </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6"><label> Salary</label><input type="number" ng-model="empsalaryu" class="form-control"></div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sel1">Select Designation:</label>
+                    <select class="form-control" ng-model="empdesu">
+                        <option>Software Engineer</option>
+                        <option>Senior Software Engineer</option>
+                        <option>Technical Leader</option>
+                        <option>Principal Engineer</option>
+                        <option>Distinguished Engineer</option>
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-block btn-success" ng-click="upEmp()">Submit</button>
+        </div>
+    </div>
+    <!--Show and Operate-->
+
+    <!-- Table Start: Displays Employee Info -->
+    <div class="jumbotron" ng-if="emp.length!=0">
+        <table class="table table-responsive table-striped display nowrap" id="example">
+            <thead>
+                <tr>
+                    <th>Employee Id</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Designation</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="x in emp">
+                    <td>{{x.id}}</td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.salary}}</td>
+                    <td>{{x.designation}}</td>
+                    <td>
+                        <span class="glyphicon glyphicon-pencil" ng-click="upd($index)"></span>
+                        <span class="glyphicon glyphicon-trash" ng-click="del($index)"></span>
+                    </td>
+                 </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="angular.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
